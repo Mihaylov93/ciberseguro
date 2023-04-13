@@ -30,6 +30,3 @@ else:
         print(result)
     except (ValueError, IndexError):
         print("Error: Argument must be an integer")
-
-
-
