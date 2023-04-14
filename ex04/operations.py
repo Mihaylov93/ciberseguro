@@ -18,8 +18,14 @@ def do_op(str1=None, str2=None):
     print("Sum:", num1 + num2)
     print("Difference:", num1 - num2)
     print("Product:", num1 * num2)
-    print("Quotient:", num1 / num2)
-    print("Remainder:", num1 % num2)
+    if num2 == 0:
+        print("Quotient: ERROR (division by zero)")
+    else:
+        print("Quotient:", num1 / num2)
+    if num2 == 0:
+        print("Remainder : ERROR (modulo by zero)")
+    else:
+        print("Remainder:", num1 % num2)
 
 if __name__ == "__main__":
     if len(sys.argv) > 3:

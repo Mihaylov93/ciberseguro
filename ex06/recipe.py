@@ -46,7 +46,7 @@ def add_recipe(cookbook):
     prep_time = ""
     while recipe_name == "":
         recipe_name = input("\nPlease enter the name of the recipe: \n")
-    ingredient = ""
+    ingredient = None
     print("\nEnter ingredients (enter '(two spaces)' when finished):")
     while ingredient != '  ':
         ingredient = input()

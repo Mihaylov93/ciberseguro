@@ -9,7 +9,7 @@ kata = {
 def kata_do():
     s = ""
     for key, value in kata.items():
-        s += f"{key} was created by {value}, "
+        s += f"\n{key} was created by {value}, "
     print(f"There are {len(kata)} languages: {s[:-2]}")
     return
 
