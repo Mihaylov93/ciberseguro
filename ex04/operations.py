@@ -6,6 +6,7 @@ def do_op(str1=None, str2=None):
     """
     while str1 is None or str2 is None or str1.strip() == "" or str2.strip() == "":
         str1 = input("Write first number:  ")
+    while str2 is None or str2.strip() == "":    
         str2 = input("Write second number:  ")
 
     if not str1.lstrip('-').isdigit() or not str2.lstrip('-').isdigit():
@@ -32,10 +33,11 @@ if __name__ == "__main__":
             print("error: Too many arguments")
     elif len(sys.argv) == 3:
             do_op(sys.argv[1], sys.argv[2])
-    else:
+    elif len(sys.argv) < 3:
         str1 = None
         str2 = None
-        while str1 is None or str2 is None or str1.strip() == "" or str2.strip() == "":
+        while str1 is None or str1.strip() == "":
             str1 = input("Please provide a number as first parameter:  ")
+        while str2 is None or str2.strip() == "":
             str2 = input("Please provide a number as second parameter:  ")
         do_op(str1, str2)

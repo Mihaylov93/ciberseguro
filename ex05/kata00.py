@@ -12,8 +12,5 @@ def kata_do():
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         kata_do()
-    elif sys.argv[1] == "new_tuple":
-        kata = tuple(int(x) for x in input("Enter the numbers separated by commas: ").split(","))
-        kata_do()
     else:
         print("Error: Too many arguments")
