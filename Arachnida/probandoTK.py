@@ -1,5 +1,4 @@
 
-
 import PySimpleGUI as sg
 import os.path
 from PIL import Image
@@ -25,10 +24,10 @@ file_list_column = [
 
 # For now will only show the name of the file that was chosen
 metadata_viewer_column =  [
-            [sg.Text("Edit Metadata of the image:")],
-            [sg.Multiline(default_text="", size=(60, 40), key="-METADATA-")],
-            [sg.Button('Edit Metadata', key='-EDIT-')]
-        ]
+    [sg.Text("Edit Metadata of the image:")],
+    [sg.Multiline(default_text="", size=(60, 40), key="-METADATA-")],
+    [sg.Button('Edit Metadata', key='-EDIT-')]
+]
 
 # ----- Full layout -----
 layout = [
@@ -59,7 +58,7 @@ while True:
             f
             for f in file_list
             if os.path.isfile(os.path.join(folder, f))
-            and f.lower().endswith((".png", ".gif", ".jpg", ".jpeg", ".bmp" ))
+               and f.lower().endswith((".png", ".gif", ".jpg", ".jpeg", ".bmp" ))
         ]
         window["-FILE LIST-"].update(fnames)
     if event == "-FILE LIST-":  # A file was chosen from the listbox
@@ -68,11 +67,11 @@ while True:
                 values["-FOLDER-"], values["-FILE LIST-"][0]
             )
             window["-METADATA-"].update(filename)
-            
+
             # Open the image and extract the metadata
             img = Image.open(filename)
             metadata = img.getexif()
-            
+
             # Iterate over all the metadata elements and display them
             metadata_text = ""
             for tag_id in metadata:
@@ -82,7 +81,7 @@ while True:
                 data = metadata.get(tag_id)
                 # Add the name and value of the tag to the metadata text
                 metadata_text += f"{tag}: {data}\n"
-            
+
             # Update the metadata text box with the metadata of the selected image
             window["-METADATA-"].update(metadata_text)
 
@@ -95,8 +94,8 @@ while True:
     elif event == "-EDIT-":
         if filename == os.path.join(
                 values["-FOLDER-"], values["-FILE LIST-"][0]
-            ):
-            
+        ):
+
             # Open the image and extract the metadata
             img = Image.open(filename)
             metadata = img.getexif()
@@ -129,26 +128,21 @@ while True:
                 elif edit_event == "-SAVE-CHANGES-":
                     print("uno")
                     # Parse the new metadata and update the image
-                    new_metadata = {}
+
                     for line in edit_values["-EDIT-METADATA-"].split("\n"):
                         if ":" in line:
                             tag_name, tag_value = line.split(": ")
-                            tag_id = TAGS.get(tag_name, tag_name)
-                            new_metadata[tag_id] = tag_value
-                            print ("dos")
+                            tag_id = list(TAGS.keys())[list(TAGS.values()).index(tag_name)]
+                            metadata[tag_id] = type(metadata[tag_id])(tag_value)
+                            print("dos")
 
                     edit_window.close()
                     print("tres")
                     window['-METADATA-'].update(edit_values['-EDIT-METADATA-'])
                     print("cuatro")
+                    img.save(filename, format="JPEG", exif=metadata)
                     sg.popup("Metadata updated successfully!")
                     print("cinco")
                     break
-        
-        # sg.popup("Sale del programa inesperadamente")
-            
-        # img.save(filename, format="JPEG", exif=new_metadata)
-            
 
-        # Close the Edit Metadata window
 window.close()
